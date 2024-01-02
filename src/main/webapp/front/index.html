@@ -1,0 +1,262 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>lutetong_home</title>
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
+    <script src="js/jquery-1.11.0.min.js"></script>
+    <link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <script type="application/x-javascript"> addEventListener("load", function () {
+        setTimeout(hideURLbar, 0);
+    }, false);
+
+    function hideURLbar() {
+        window.scrollTo(0, 1);
+    }
+
+    >
+    </script>
+    <!--Google Fonts-->
+    <!-- 这点是从google盗取的字体 -->
+    <link href='http://fonts.useso.com/css?family=Roboto:500,900,100,300,700,400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Cantata+One' rel='stylesheet' type='text/css'>
+    <!-- 设置一点js暂时用不到 -->
+    <script src="http://ajax.useso.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="js/move-top.js"></script>
+    <script type="text/javascript" src="js/easing.js"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function ($) {
+            $(".scroll").click(function (event) {
+                event.preventDefault();
+                $('html,body').animate({scrollTop: $(this.hash).offset().top}, 1000);
+            });
+        });
+    </script>
+</head>
+<body>
+<div class="header-home">
+    <div class="fixed-header">
+        <div class="top-nav">
+            <span class="menu"> </span>
+            <ul>
+                <li class="active"><a href="index.html">首页</a></li>
+                <li><a href="about%20us.html">公司介绍</a></li>
+                <li><a href="service.html">产品展示</a></li>
+                <li><a href="../pages/login.html">我是职员</a></li>
+                <li><a href="contact.html">联系我们</a></li>
+            </ul>
+            <!-- script-nav -->
+            <script>
+                $("span.menu").click(function () {
+                    $(".top-nav ul").slideToggle(500, function () {
+                    });
+                });
+            </script>
+            <script type="text/javascript">
+                jQuery(document).ready(function ($) {
+                    $(".scroll").click(function (event) {
+                        event.preventDefault();
+                        $('html,body').animate({scrollTop: $(this.hash).offset().top}, 1000);
+                    });
+                });
+            </script>
+            <!-- //script-nav -->
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>
+<!--script-->
+<!-- script-for sticky-nav -->
+<script>
+    $(document).ready(function () {
+        var navoffeset = $(".header-home").offset().top;
+        $(window).scroll(function () {
+            var scrollpos = $(window).scrollTop();
+            if (scrollpos >= navoffeset) {
+                $(".header-home").addClass("fixed");
+            } else {
+                $(".header-home").removeClass("fixed");
+            }
+        });
+
+    });
+</script>
+<!-- /script-for sticky-nav -->
+<!--banner end here-->
+
+<!--banner start here-->
+<div class="banner">
+    <div class="container">
+        <div class="banner-main">
+            <div class="bann-logo">
+                <h1>欢迎来到江苏路特通医疗器械有限公司</h1>
+                <p></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--services start here-->
+<div class="services">
+    <div class="container">
+        <div class="services-main">
+            <div class="col-md-8 services-left">
+                <h3>我们的产品</h3>
+                <p>美国诺华贝(NovaBay Pharmaceuticals)公司进口伤口液体敷料。此产品可以非常轻松有效地杀死细菌
+                    （革兰氏阴性和革兰氏阳性菌），病毒和真菌，具有广谱的抗菌活性，可以在极短时间里杀灭微生物，甚至快到无法计时，无毒无致敏性</p>
+                <ul>
+                    <li><a href="#"> 钮储菲伤口液体敷料</a></li>
+                    <li><a href="#"> 倍菱胶原蛋白海绵</a></li>
+                    <li><a href="#"> 超声治疗固定贴</a></li>
+                </ul>
+                <br>
+                <br>
+                <div class="heart-btn">
+                    <a href="/front/service.html">了解更多</a>
+                </div>
+            </div>
+            <div class="col-md-4 services-right">
+                <img src="images/yao1.jpg" alt="" class="img-responsive">
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<!--services end here-->
+<!--ser-strip start here-->
+<div class="ser-strip">
+    <div class="container">
+        <div class="ser-strip-main">
+            <div class="col-md-6 serstrip-left">
+                <div class="ser-strip-grid">
+                    <div class="col-md-2 ser-strip-img">
+                        <img src="images/group.png" alt="" class="img-responsive">
+                    </div>
+                    <div class="col-md-10 ser-strip-head">
+                        <h3>公司概况</h3>
+                    </div>
+                    <div class="clearfix"></div>
+                    <p>江苏路特通医疗器械有限公司是一家专业致力于医疗用品销售的企业，公司员工全部为本科及以上学历，90%为医药相关专业，团队专业，成绩斐然。</p>
+                </div>
+                <div class="ser-strip-grid">
+                    <div class="col-md-2 ser-strip-img">
+                        <img src="images/brif.png" alt="" class="img-responsive">
+                    </div>
+                    <div class="col-md-10 ser-strip-head">
+                        <h3>招聘范围</h3>
+                    </div>
+                    <div class="clearfix"></div>
+                    <p>成长的道路很艰难，但好在有你我相伴。如果您有意向成为我们的司机，市场销售人员或医院代表，请查看我们的具体招聘要求，欢迎随时联系我们。</p>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <div class="col-md-6 serstrip-right">
+                <div class="ser-strip-grid">
+                    <div class="col-md-2 ser-strip-img">
+                        <img src="images/heart.png" alt="" class="img-responsive">
+                    </div>
+                    <div class="col-md-10 ser-strip-head">
+                        <h3>企业文化</h3>
+                    </div>
+                    <div class="clearfix"></div>
+                    <p>公司自成立以来，一直以“创造人类健康生活，提供客户满意服务”为公司使命，秉承着 “团结，进取，创新，共赢”的企业精神</p>
+                </div>
+                <div class="ser-strip-grid">
+                    <div class="col-md-2 ser-strip-img">
+                        <img src="images/group.png" alt="" class="img-responsive">
+                    </div>
+                    <div class="col-md-10 ser-strip-head">
+                        <h3>销售范围</h3>
+                    </div>
+                    <div class="clearfix"></div>
+                    <p>目前公司的销售网络为全国各大三级医院以及各个县区主要的人民医院和中医院，合作客户逐歩增加，公司规模不断扩大</p>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<!--ser-strip end here-->
+<!--help start herer-->
+<div class="help">
+    <div class="container">
+        <div class="help-main">
+            <div class="help-top">
+                <h3>我们的坚守</h3>
+                <p>What the enterprise believes in maintains the soul and vitality of the enterprise</p>
+            </div>
+            <div class="help-bottom">
+                <div class="col-md-3 help-grid">
+                    <img src="images/scope.png" alt="">
+                    <h4>品管提高信誉，信誉扩大销售</h4>
+                    <p>Quality and management improve reputation and expand sales</p>
+                </div>
+                <div class="col-md-3 help-grid">
+                    <img src="images/h2.png" alt="">
+                    <h4>强化服务意识，倡导奉献精神</h4>
+                    <p>Strengthen the sense of service and advocate the spirit of dedication</p>
+                </div>
+                <div class="col-md-3 help-grid">
+                    <img src="images/h3.png" alt="">
+                    <h4>多创优质产品，打造企业形象</h4>
+                    <p>Create more high-quality products and create a corporate image</p>
+                </div>
+                <div class="col-md-3 help-grid">
+                    <img src="images/h4.png" alt="">
+                    <h4>培养良好素养，营造团队力量</h4>
+                    <p>Cultivate staff' good attainment and build the strength of the team</p>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--help end here-->
+<!--footer start here-->
+<div class="footer">
+    <div class="container">
+        <div class="footer-main">
+            <div class="col-md-4 footer-grid">
+                <h3>关于我们</h3>
+                <ul>
+                    <li><a href="index.html" class="active">首页</a></li>
+                    <li><a href="about%20us.html">公司介绍</a></li>
+                    <li><a href="service.html">产品展示</a></li>
+                    <li><a href="../pages/login.html">我是职工</a></li>
+                    <li><a href="contact.html">联系我们</a></li>
+                </ul>
+            </div>
+
+            <div class="col-md-4 footer-grid">
+                <h3>友情链接</h3>
+                <ul>
+                    <li><a href="https://www.chinacdc.cn/">中国疾病防控中心</a></li>
+                    <li><a href="https://www.msdmanuals.cn/">默沙东诊疗手册</a></li>
+                    <li><a href="https://www.mvyxws.com/">医学微视</a></li>
+                    <li><a href="https://www.webmd.com/">&WebMD</a></li>
+                    <li><a href="https://dxy.com">丁香医生</a></li>
+                </ul>
+            </div>
+
+            <div class="col-md-4 footer-grid">
+                <h3>联系我们</h3>
+                <p>地址</p>
+                <p>江苏省徐州市凤鸣路1号大通大厦2楼</p>
+                <p>0516-87786900</p>
+                <p>邮箱</p>
+                <p>ltt82661188@163.com</p>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="copyrigyht">
+            <p>Copyright &copy; 2022.Company name All rights reserved.</p>
+        </div>
+    </div>
+</div>
+<!--footer end here-->
+<!--copy right start here-->
+<!--copy right end here-->
+</body>
+</html>

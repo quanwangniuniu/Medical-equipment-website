@@ -1,0 +1,59 @@
+@font-face {
+  font-family: "iconfont"; /* Project id 3572785 */
+  src: url('iconfont.woff2?t=1660189445711') format('woff2'),
+       url('iconfont.woff?t=1660189445711') format('woff'),
+       url('iconfont.ttf?t=1660189445711') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 26px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-tuichu:before {
+  content: "\e66a";
+}
+
+.icon-tuichu1:before {
+  content: "\e636";
+}
+
+.icon-zhuye2:before {
+  content: "\e65d";
+}
+
+.icon-zhuye1:before {
+  content: "\e628";
+}
+
+.icon-peoplelist:before {
+  content: "\e7be";
+}
+
+.icon-resumebox:before {
+  content: "\e605";
+}
+
+.icon-zhuye:before {
+  content: "\e654";
+}
+
+.icon-analysis:before {
+  content: "\e600";
+}
+
+.icon-product:before {
+  content: "\e75d";
+}
+
+.icon-hrstaff:before {
+  content: "\e611";
+}
+
+.icon-Resume:before {
+  content: "\e661";
+}
+

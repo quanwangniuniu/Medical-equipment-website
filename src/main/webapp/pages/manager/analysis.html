@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <link rel="stylesheet" href="../../css/employee/analysis.css">
+  <link rel="stylesheet" href="../../icon/iconfont.css">
+  <!-- 引入element-ui的css，-->
+  <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+  <!-- 引入vue.js -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+  <!-- 引入element的js-->
+  <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+  <!-- axios -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <!-- echarts -->
+  <script src="../../js/echarts.min.js"></script>
+
+</head>
+
+<body>
+<div class="container" id="app">
+  <div class="left-nav">
+    <ul>
+      <li>
+        <span class="iconfont icon-zhuye2"></span>&nbsp;&nbsp;<a href="index.html">主页</a>
+      </li>
+      <li>
+        <span class="iconfont icon-peoplelist"></span>&nbsp;&nbsp;<a href="employee.html">员工管理</a>
+      </li>
+      <li>
+        <span class="iconfont icon-product"></span>&nbsp;&nbsp;<a href="product.html">产品管理</a>
+      </li>
+      <li>
+        <span class="iconfont icon-analysis"></span>&nbsp;&nbsp;<a href="analysis.html">数据分析</a>
+      </li>
+    </ul>
+    <ul class="logout-btn">
+      <li>
+        <span class="iconfont icon-tuichu"></span>&nbsp;&nbsp;<a href="/logout">退出登录</a>
+      </li>
+    </ul>
+  </div>
+  <div class="panel">
+    <h1>请假分析</h1>
+    <div class="p1">
+      <div class="p1-1" id="c1"></div>
+      <div class="p1-2" id="c2"></div>
+    </div>
+    <h1>打卡分析</h1>
+    <div class="p2" id="c3"></div>
+  </div>
+</div>
+
+<script>
+  new Vue({
+    el: '#app',
+    data() {
+      return {
+        tableData: [],
+        username: sessionStorage.getItem("username"),
+        id: sessionStorage.getItem("id"),
+        totalEmployee: null,
+        totalProduct: null,
+        chartdata: {
+          monthsArray: null,
+          yearCount: null,
+          typeCount: null,
+          clockInDate: null,
+          clockInRate: null
+        }
+      }
+    },
+    methods: {
+      generateMonthArr() {
+        let currentDate = new Date(); // 获取当前日期
+        let monthsArray = []; // 创建空数组用于存储月份
+
+        for (let i = 0; i < 12; i++) {
+          let year = currentDate.getFullYear(); // 获取当前年份
+          let month = currentDate.getMonth() + 1; // 获取当前月份，注意月份从0开始，需要+1
+          month = month < 10 ? month : month; // 将月份转换为两位数格式
+
+          let dateString = year + "-" + month; // 拼接成 YYYY-MM 格式的日期字符串
+          monthsArray.unshift(dateString); // 将日期字符串添加到数组的开头
+
+          currentDate.setMonth(currentDate.getMonth() - 1); // 将当前日期减少一个月，以便获取前一个月份
+        }
+        this.chartdata.monthsArray = monthsArray
+      },
+
+      async getLeaveAnalysisData() {
+        let data = await axios.get('http://localhost:8081/leave/analysis')
+        this.chartdata.yearCount = data.data.data.yearCount
+        this.chartdata.typeCount = data.data.data.typeCount
+        console.log(this.chartdata)
+      },
+
+      createCharts01() {
+        var chartDom = document.getElementById('c1');
+        var myChart = echarts.init(chartDom);
+        var option;
+
+        option = {
+          xAxis: {
+            type: 'category',
+            data: this.chartdata.monthsArray
+          },
+          yAxis: {
+            type: 'value'
+          },
+          series: [
+            {
+              data: this.chartdata.yearCount,
+              type: 'bar',
+              showBackground: true,
+              backgroundStyle: {
+                color: 'rgba(180, 180, 180, 0.2)'
+              }
+            }
+          ],
+          grid: {
+            top: "10px",
+            left: "40px",
+            right: "30px",
+            bottom: "30px"
+          },
+
+        };
+        option && myChart.setOption(option);
+      },
+
+      createCharts02() {
+        var chartDom = document.getElementById('c2');
+        var myChart = echarts.init(chartDom);
+        var option;
+
+        option = {
+          title: {
+            left: 'center'
+          },
+          tooltip: {
+            trigger: 'item'
+          },
+          series: [
+            {
+
+              type: 'pie',
+              radius: '60%',
+              data: this.chartdata.typeCount,
+              emphasis: {
+                itemStyle: {
+                  shadowBlur: 10,
+                  shadowOffsetX: 0,
+                  shadowColor: 'rgba(0, 0, 0, 0.5)'
+                }
+              }
+            }
+          ]
+        };
+
+        option && myChart.setOption(option);
+
+      },
+      createCharts03() {
+        var chartDom = document.getElementById('c3');
+        var myChart = echarts.init(chartDom);
+        var option;
+
+        option = {
+          xAxis: {
+            type: 'category',
+            data: this.chartdata.clockInDate
+          },
+          yAxis: {
+            type: 'value'
+          },
+          series: [
+            {
+              data: this.chartdata.clockInRate,
+              type: 'line'
+            }
+          ],
+          grid: {
+            top: "30px",
+            left: "40px",
+            right: "30px",
+            bottom: "50px"
+          },
+        };
+
+        option && myChart.setOption(option);
+
+      }
+
+    },
+
+    created() {
+      axios.get('http://localhost:8081/leave/analysis').then(resp => {
+        if (resp.data.code === 1) {
+          this.chartdata.yearCount = resp.data.data.yearCount
+          this.chartdata.typeCount = resp.data.data.typeCount
+          this.generateMonthArr();
+          this.createCharts01();
+          this.createCharts02();
+          this.createCharts03();
+
+          console.log(this.chartdata)
+
+        } else {
+          this.$message.error("数据库错误");
+        }
+      })
+
+      axios.get('http://localhost:8081/clockIn/rate').then(resp => {
+        if (resp.data.code === 1) {
+          this.chartdata.clockInDate = resp.data.data.clockInDate
+          this.chartdata.clockInRate = resp.data.data.clockInRate
+          this.createCharts03();
+          console.log(this.chartdata)
+
+        } else {
+          this.$message.error("数据库错误");
+        }
+      })
+
+
+
+    },
+    mounted() {
+    }
+  })
+</script>
+
+
+</body>
+
+</html>

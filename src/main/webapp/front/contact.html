@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JoinUs</title>
+	<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
+<script src="js/jquery-1.11.0.min.js"></script>
+<link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
+<link href="css/join.css" rel="stylesheet" type="text/css" media="all"/>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); }>
+</script>
+<!--Google Fonts-->
+<!-- 这点是从google盗取的字体 -->
+<link href='http://fonts.useso.com/css?family=Roboto:500,900,100,300,700,400' rel='stylesheet' type='text/css'>
+<link href='http://fonts.useso.com/css?family=Cantata+One' rel='stylesheet' type='text/css'>
+<!-- 设置一点js暂时用不到 -->
+<script src="http://ajax.useso.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="js/move-top.js"></script>
+<script type="text/javascript" src="js/easing.js"></script>
+	<script type="text/javascript">
+			jQuery(document).ready(function($) {
+				$(".scroll").click(function(event){		
+					event.preventDefault();
+					$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+				});
+			});
+	</script>
+    
+</head>
+<body>
+<div class="header-home">
+	<div class="fixed-header">
+				<div class="top-nav">
+						<span class="menu"> </span>
+					<ul>
+						<li><a href="index.html">首页</a></li>
+						<li><a href="about%20us.html">公司介绍</a></li>
+						<li><a href="service.html">产品展示</a></li>
+						<li><a href="../pages/login.html">我是职员</a></li>
+						<li class="active"><a href="contact.html">联系我们</a></li>
+					</ul>
+				<!-- script-nav -->
+			<script>
+			$("span.menu").click(function(){
+				$(".top-nav ul").slideToggle(500, function(){
+				});
+			});
+			</script>
+			<script type="text/javascript">
+					jQuery(document).ready(function($) {
+						$(".scroll").click(function(event){		
+							event.preventDefault();
+							$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+						});
+					});
+					</script>
+				<!-- //script-nav -->
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+		</div>
+	<!--script-->
+			<!-- script-for sticky-nav -->
+		<script>
+		$(document).ready(function() {
+			 var navoffeset=$(".header-home").offset().top;
+			 $(window).scroll(function(){
+				var scrollpos=$(window).scrollTop(); 
+				if(scrollpos >=navoffeset){
+					$(".header-home").addClass("fixed");
+				}else{
+					$(".header-home").removeClass("fixed");
+				}
+			 });
+			 
+		});
+		</script>
+		<!-- /script-for sticky-nav -->
+<!--banner end here-->
+<div class="banner1">
+	<div class="container">
+		<div class="banner-main1">
+			<div class="bann-logoo">
+				<h1>路特通欢迎您的到来</h1>
+				<p > </p>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<div class="contian">
+  
+    <div class="box">
+        <img src="images/xxx.jpg">
+        <div class="txt">
+            <div class="c add clear">
+                <span class="l">工作地点：</span>
+                <div class="text">徐州</div>
+            </div>
+            <div class="c clear">
+                <span class="l">学历要求：</span>
+                <div class="text">专科（或以上）学历</div>
+            </div>
+            <div class="c clear stu">
+                <span class="l">职位要求：</span>
+                <div class="text">医学、药学、临床、检验、化验、护理等优先，党员优先</div>
+            </div>
+            <div class="c clear">
+                <span class="l">年龄要求：</span>
+                <div class="text">35岁以下，性别不限</div>
+            </div>
+            <div class="c clear stu">
+                <span class="l">薪资待遇：</span>
+                <div class="text">底薪2600+提成+绩效，一人一议，公司面谈</div>
+            </div>
+        </div>
+        <div class="appraise"></div>
+        <div class="info">
+            <h4><a href="post.html">加入我们</a></h4>
+            <em>|</em>
+            <span>医药代表</span>
+        </div>
+    </div>
+    <div class="box">
+        <img src="images/driver.jpg">
+        <div class="txt">
+            <div class="c add clear">
+                <span class="l">工作地点：</span>
+                <div class="text">徐州</div>
+            </div>
+            <div class="c clear">
+                <span class="l">学历要求：</span>
+                <div class="text">专科（或以上）学历</div>
+            </div>
+            <div class="c clear stu">
+                <span class="l">职位要求：</span>
+                <div class="text">C1以上驾驶执照，两年以上从业经验,退伍军人、党员优先</div>
+            </div>
+            <div class="c clear">
+                <span class="l">年龄要求：</span>
+                <div class="text">35岁以下，性别不限</div>
+            </div>
+            <div class="c clear stu">
+                <span class="l">薪资待遇：</span>
+                <div class="text">试用期底薪300+加班费，转正后提升，一人一议，公司面谈</div>
+            </div>
+        </div>
+        <div class="appraise"></div>
+        <div class="info">
+            <h4><a href="post.html">加入我们</a></h4>
+            <em>|</em>
+            <span>司机</span>
+        </div>
+    </div>
+  
+</div>
+
+
+
+
+
+
+
+<!--footer start here-->
+<div class="footer">
+	<div class="container">
+		<div class="footer-main">
+			<div class="col-md-4 footer-grid">
+				<h3>关于我们</h3>
+				<ul>
+					<li><a href="index.html" class="active">首页</a></li>
+					<li><a href="about%20us.html">公司介绍</a></li>
+					<li><a href="service.html">产品展示</a></li>
+					<li><a href="../pages/login.html">我是职工</a></li>
+					<li><a href="contact.html">联系我们</a></li>
+				</ul>
+			</div>
+
+			<div class="col-md-4 footer-grid">
+				<h3>友情链接</h3>
+				<ul>
+					<li><a href="https://www.chinacdc.cn/" >中国疾病防控中心</a></li>
+					<li><a href="https://www.msdmanuals.cn/">默沙东诊疗手册</a></li>
+					<li><a href="https://www.mvyxws.com/">医学微视</a></li>
+					<li><a href="https://www.webmd.com/">&WebMD</a></li>
+					<li><a href="https://dxy.com">丁香医生</a></li>
+				</ul>
+			</div>
+		
+			<div class="col-md-4 footer-grid">
+				<h3>联系我们</h3>
+				<p>地址</p>
+				<p>江苏省徐州市凤鸣路1号大通大厦2楼</p>
+				<p>0516-87786900</p>
+				<p>邮箱</p>
+				<p>ltt82661188@163.com</p>
+			</div>
+		  <div class="clearfix"> </div>
+		</div>
+		<div class="copyrigyht">
+				 <p>Copyright &copy; 2022.Company name All rights reserved.</p>
+		</div>
+	</div>
+</div>
+<!--footer end here-->
+</body>
+</html>

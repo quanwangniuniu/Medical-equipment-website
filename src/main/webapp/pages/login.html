@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title>login</title>
+    <!-- 引入element-ui的css，-->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- 引入vue.js -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+    <!-- 引入element的js-->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <!-- axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- 登录页面样式 -->
+    <link rel="stylesheet" href="../css/login.css">
+    <link rel="stylesheet" href="../front/css/style.css">
+
+</head>
+
+<body>
+<div id="app">
+    <div class="header-home">
+        <div class="fixed-header">
+            <div class="top-nav">
+                <span class="menu"> </span>
+                <ul>
+                    <li><a href="../front/index.html">首页</a></li>
+                    <li><a href="../front/about%20us.html">公司介绍</a></li>
+                    <li><a href="../front/service.html">产品展示</a></li>
+                    <li class="active"><a href="login.html">我是职员</a></li>
+                    <li><a href="../front/contact.html">联系我们</a></li>
+                </ul>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+
+    <el-form ref="loginForm" :model="loginForm" class="loginContainer" :rules="rules">
+        <!-- 表单标题 -->
+        <h3 class="loginTitle">系统登录</h3>
+        <!-- 用户名输入框 -->
+        <el-form-item prop="username">
+            <el-input type="text" v-model="loginForm.username" placeholder="请输入用户名" autp-complete="false" >
+            </el-input>
+        </el-form-item>
+        <!-- 密码输入框 -->
+        <el-form-item prop="password">
+            <el-input type="password" v-model="loginForm.password" placeholder="请输入密码" autp-complete="false">
+            </el-input>
+        </el-form-item>
+
+        <!-- 登录按钮 -->
+        <el-form-item>
+            <el-button type="primary" class="loginButton" @click="loginSubmit">登录</el-button>
+        </el-form-item>
+    </el-form>
+</div>
+
+<script>
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                // 表单输入内容
+                loginForm: {
+                    username: '',
+                    password: '',
+                },
+                // 表单校验
+                rules: {
+                    username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
+                    password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
+                    code: [{ required: true, message: '请输入验证码', trigger: 'blur' }],
+                }
+            }
+        },
+        methods: {
+            // 登录时调用此方法进行表单校验
+            loginSubmit() {
+                this.$refs.loginForm.validate((valid) => {
+                    // 校验表单，成功则发送请求
+                    if (valid) {
+                        axios.post('http://localhost:8081/login',{
+                            username: this.loginForm.username,
+                            password: this.loginForm.password
+                        }).then(response=>{
+                        // axios({
+                        //     method:'POST',
+                        //     url:'http://localhost:8081/login',
+                        //     headers: {
+                        //         'Content-Type': 'application/json'
+                        //     },
+                        //     params:{
+                        //         username: this.loginForm.username,
+                        //         password: this.loginForm.password
+                        //     }
+                        // }).then(response=>{
+                            console.log(response.data)
+                            //登录成功， 则跳转至首页
+                            if(response.data.code === 1){
+                                this.$message.success('登录成功');
+                                sessionStorage.setItem("username",response.data.data.username);
+                                sessionStorage.setItem("id",response.data.data.id);
+                                setTimeout(()=>{
+                                    if(response.data.data.type === 0){
+                                        window.location = '/pages/manager/index.html';
+                                    }else{
+                                        window.location = '/pages/employee/index.html';
+                                    }
+                                },500)
+                            }
+                            //否则打印登录失败原因
+                            else{
+                                this.$message.error(response.data.msg);
+                            }
+                        })
+
+                    } else {
+                        this.$message.error('请输入所有字段');
+                        return false;
+                    }
+                });
+            }
+        },
+    })
+</script>
+</body>
+
+</html>

@@ -1,0 +1,61 @@
+/* 为用户列表添加样式 */
+#userlist {
+    margin-top: 20px;
+}
+
+.list-group-item {
+    font-size: 18px;
+    background-color: transparent;
+    color: #333;
+    border: none;
+    border-bottom: 1px solid #aaa;
+    border-radius: 0px;
+}
+
+.list-group-item:hover {
+    background-color: #f5f5f5;
+}
+
+/* 为消息列表添加样式 */
+#content {
+    margin-top: 20px;
+    padding: 20px;
+    height: 400px;
+    background-color: #eee;
+    overflow: auto;
+}
+
+#content p {
+    font-size: 18px;
+    line-height: 1.4em;
+    font-family: "PingFangSC-Regular", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #555;
+}
+
+/* 为输入区域添加样式 */
+.form-group {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+}
+
+.form-control {
+    border-radius: 5px;
+    border: none;
+}
+
+.fasong,
+.qingping {
+    margin-left: 10px;
+    background-color: #007fff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.fasong:hover,
+.qingping:hover {
+    background-color: #0062cc;
+}

@@ -1,0 +1,160 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>聊天室</title>
+    <link rel="stylesheet" href="../../css/employee/friendchat.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+</head>
+
+<body>
+<div class="alert alert-primary" role="alert">员工内部聊天室</div>
+<div class="jumbotron">
+    <!-- 用户列表 -->
+    <div class="jumbotron" style="height: 500px;width: 200px;float: right;background-color: green;margin-top: -65px;margin-right: -30px;">
+        <div class="alert alert-primary" role="alert">在线用户：</div>
+        <ul class="list-group" id="userlist">
+        </ul>
+    </div>
+    <div id="content"></div>
+</div>
+<div class="form-group">
+    <input type="text" class="form-control" id="message" placeholder="请输入内容">
+    <button type="button" class="fasong" id="fuck">发送</button>
+    <button type="button" class="qingping">清屏</button>
+</div>
+</body>
+
+
+<script type="text/javascript">
+
+    //私发全局消息
+    var tomessage = "";
+    //私发用户名称
+    var tousername = "";
+    //清屏
+    $(".qingping").click(function(){
+        $("#content").html(``);
+    })
+
+    const username= sessionStorage.getItem("username");
+    console.log(sessionStorage);
+    //定义一个websocket
+    var websocket = null;
+
+    //判断当前浏览器是否支持WebSocket（固定写法）
+    if('WebSocket' in window){
+        websocket = new WebSocket("ws://localhost:8081/websocket/"+username);
+    }else{
+        alert('浏览器不支持websocket')
+    }
+
+    //连接发生错误的回调方法
+    websocket.onerror = function(){
+        console.log("发生错误");
+    };
+
+    //连接成功建立的回调方法
+    websocket.onopen = function(event){
+        console.log("建立连接"+"event");
+    }
+    //接收到消息的回调方法
+    websocket.onmessage = function(event){
+        var data = JSON.parse(event.data);
+        console.log(JSON.parse(event.data))
+
+        //更新content的内容（上线）
+        if(data.messageType=="1"){
+            // console.log("成功")
+            $("#content").append(`<span style="width: 100%;height: 30px;line-height: 30px;font-size: 12px;color:blue;margin-top: 3rem  ">`+data.username+"上线了"+`</span><br>`);
+        }
+        //更新content的内容（下线）
+        if(data.messageType=="2"){
+            // console.log("成功")
+            $("#content").append(`<span style="width: 100%;height: 30px;line-height: 30px;font-size: 12px;margin-top: 3rem ">`+data.username+"下线了"+`</span><br>`);
+        }
+        //更新content的内容（更新用户列表）
+        if(data.messageType=="3"){
+            //先清空
+            $("#userlist").html(``);
+            var list = data.onlineUsers;
+            console.log(list)
+            for(var i=0;i<list.length;i++){
+                $("#userlist").append(`<li style="cursor:pointer;" class="list-group-item" onclick="friend(this)" values="`+list[i]+`">`+list[i]+`</li>`);
+            }
+        }
+        var now = new Date();
+        var year = now.getFullYear();
+        var month = now.getMonth() + 1; // 注意：月份是从0开始的，需要加1
+        var day = now.getDate();
+        var hour = now.getHours();
+        var minute = now.getMinutes();
+        var second = now.getSeconds();
+        var messagetime=year+'-'+month+'-'+day+'-'+hour+':'+minute+':'+second;
+        //更新content的内容（更新用户群发消息）
+        if(data.messageType=="4"){
+            // console.log(data);
+            $("#content").append(`<span style="width: 100%;height: 30px;line-height: 30px;font-size: 30px;margin-top: 2rem ">`+'<p style="font-size: 0.5rem;margin-top: 0.5rem">'+messagetime+'</p>'+data.username+`:   `+data.textMessage+`</span><br>`);
+        }
+    }
+
+    //选择用户
+    function friend(e){
+        console.log(e);
+        $("#message").val("@ "+e.innerHTML+" ");
+        var data = e.innerHTML;
+        console.log(data);
+        tousername = data;
+    }
+
+    //连接关闭的回调方法
+    websocket.onclose = function(){
+        console.log("关闭连接");
+    }
+
+    //监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
+    window.onbeforeunload = function(){
+        alert("已关闭连接");
+        websocket.close();
+    }
+
+    //发送按钮
+    $(".fasong").click(function(){
+        console.log("发送消息");
+        var message = $("#message").val();
+        //判断是群发还是私发
+        console.log(message);
+        //获取发送对象
+        tousername = message.split(' ')[1];
+        //获取发送消息
+        tomessage = message.split(' ')[2];
+        console.log(tomessage);
+        console.log(tousername);
+        if(message.indexOf("@")!=-1){
+            //私发
+            console.log("私发")
+            var param = {};
+            param['username'] = username;
+            param['message'] = tomessage;
+            param['type'] = '私发';
+            param['tousername'] = tousername;
+        }
+        else{
+            //群发
+            console.log("群发")
+            var param = {};
+            param['username'] = username;
+            param['message'] = message;
+            param['type'] = '群发';
+            param['tousername'] = '';
+        }
+        //发送消息到后端
+        websocket.send(JSON.stringify(param));
+        document.getElementById("message").value="";
+    })
+
+</script>
+</html>

@@ -1,0 +1,49 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+#app {
+    background-image: url(../images/background.png);
+    background-size: cover;
+    height: 100vh;
+}
+
+.header-home{
+    background-color: white;
+}
+
+.loginContainer {
+    border-radius: 15px;
+    background-clip: padding-box;
+    margin: 200px auto;
+    width: 350px;
+    padding: 15px 35px 15px 35px;
+    background-color: #fff;
+    border: 1px solid #eaeaea;
+    box-shadow: 0 0 25px #1f1e1e;
+}
+
+/* 表单标题居中 */
+.loginTitle {
+    margin: 10px;
+    text-align: center;
+}
+
+.loginButton {
+    width: 100%;
+    background-color: #ffb900;
+    border-color: #ffb900;
+    color: black;
+}
+
+.loginButton:hover {
+    background-color: #505050;
+    border-color: #505050;
+    color: white;
+}
+
+.header {
+    height: 100px;
+    background-color: red;
+}

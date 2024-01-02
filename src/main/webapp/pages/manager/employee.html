@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../../css/manager/employee.css">
+    <link rel="stylesheet" href="../../css/manager/index.css">
+    <link rel="stylesheet" href="../../icon/iconfont.css">
+    <!-- 引入element-ui的css，-->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- 引入vue.js -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+    <!-- 引入element的js-->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <!-- axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- echarts -->
+    <script src="../../js/echarts.js"></script>
+
+</head>
+
+<body>
+<div class="container" id="app">
+    <!-- 左侧导航条  -->
+    <div class="left-nav">
+        <ul>
+            <li>
+                <span class="iconfont icon-zhuye2"></span>&nbsp;&nbsp;<a href="index.html">主页</a>
+            </li>
+            <li>
+                <span class="iconfont icon-peoplelist"></span>&nbsp;&nbsp;<a href="employee.html">员工管理</a>
+            </li>
+            <li>
+                <span class="iconfont icon-product"></span>&nbsp;&nbsp;<a href="product.html">产品管理</a>
+            </li>
+            <li>
+                <span class="iconfont icon-analysis"></span>&nbsp;&nbsp;<a href="analysis.html">数据分析</a>
+            </li>
+        </ul>
+        <ul class="logout-btn">
+            <li>
+                <span class="iconfont icon-tuichu"></span>&nbsp;&nbsp;<a href="/logout">退出登录</a>
+            </li>
+        </ul>
+    </div>
+    <!-- 右侧功能面板   -->
+    <div class="panel">
+        <div class="emp-table">
+            <!-- 表格顶部搜索栏 -->
+            <div class="top-bar">
+                姓名&nbsp;<el-input v-model="searchContent.name" placeholder="请输入姓名" style="width: 200px"></el-input>&nbsp;&nbsp;
+                <el-button type="primary" style="background-color: rgb(0, 47, 167); border: none" @click="searchData">查询</el-button>
+                <el-button type="primary" style="background-color: rgb(0, 47, 167); border: none" @click="reset">重置</el-button>
+                <el-button type="primary" class="add-btn" @click="dialogVisible = true" style="background-color: rgb(0, 47, 167); border: none">新增用户</el-button>
+                <!--  新增用户时弹出的dialog  -->
+                <el-dialog title="新增用户" :visible.sync="dialogVisible" width="30%" :before-close="handleClose" center>
+                    <el-form ref="newEmployee" :model="newEmployee" :rules="rules" class="add-form">
+                        <span class="add-title">用户名</span>
+                        <el-form-item prop="username" class="form-item">
+                            <el-input v-model="newEmployee.username" placeholder="请输入用户名" style="width: 200px"></el-input>
+                        </el-form-item>
+                        <br>
+                        <span class="add-title">密码</span>
+                        <el-form-item prop="password" class="form-item">
+                            <el-input v-model="newEmployee.password" placeholder="请输入密码" style="width: 200px" show-password></el-input>
+                        </el-form-item>
+                        <br>
+                        <span class="add-title">确认密码</span>
+                        <el-form-item prop="confirm" class="form-item">
+                            <el-input v-model="newEmployee.confirm" placeholder="请确认密码" style="width: 200px" show-password></el-input>
+                        </el-form-item>
+                        <br>
+                        <span class="add-title">姓名</span>
+                        <el-form-item prop="name" class="form-item">
+                            <el-input v-model="newEmployee.name" placeholder="请输入姓名" style="width: 200px"></el-input>
+                        </el-form-item>
+                        <br>
+                        <span class="add-title">性别</span>
+                        <el-form-item prop="sex" class="form-item">
+                            <el-radio v-model="newEmployee.sex" label="0">男</el-radio> <el-radio v-model="newEmployee.sex" label="1">女</el-radio>
+                        </el-form-item>
+                        <br>
+                        <span class="add-title">年龄</span>
+                        <el-form-item prop="age" class="form-item">
+                            <el-select v-model="newEmployee.age" placeholder="请选择年龄" class="form-item" style="width: 200px">
+                                <el-option
+                                        v-for="item in options"
+                                        :key="item.value"
+                                        :label="item.label"
+                                        :value="item.value">
+                                </el-option>
+                            </el-select>
+                        </el-form-item>
+                        <br>
+                        <span class="add-title">手机号</span>
+                        <el-form-item prop="phone" class="form-item">
+                            <el-input v-model="newEmployee.phone" placeholder="请输入手机号" style="width: 200px"></el-input>
+                        </el-form-item>
+                        <br>
+                        <span class="add-title">账号类型</span>
+                        <el-form-item prop="type" class="form-item">
+                            <el-radio v-model="newEmployee.type" label="0">管理员</el-radio> <el-radio v-model="newEmployee.type" label="1">普通员工</el-radio>
+                        </el-form-item>
+
+                    </el-form>
+                    <span slot="footer" class="dialog-footer">
+                        <el-button @click="dialogVisible = false">取 消</el-button>
+                        <el-button type="primary" @click="submit">确 定</el-button>
+                    </span>
+                </el-dialog>
+            </div>
+            <!-- 员工管理表格 -->
+            <el-table :data="tableData" stripe style="width: 100%; font-size: 16px;"
+                      :header-cell-style="{'text-align':'center'}" :cell-style="{'text-align':'center'}" height="80vh">
+                <el-table-column prop="id" label="id">
+                </el-table-column>
+                <el-table-column prop="name" label="姓名">
+                </el-table-column>
+                <el-table-column prop="age" label="年龄">
+                </el-table-column>
+                <el-table-column prop="sex" label="性别">
+                </el-table-column>
+                <el-table-column prop="phone" label="手机号码">
+                </el-table-column>
+                <el-table-column prop="create_time" label="入职时间">
+                </el-table-column>
+                <el-table-column prop="type" label="用户类型">
+                </el-table-column>
+                <el-table-column prop="status" label="账号状态">
+                    <template slot-scope="scope">
+                        <el-tag :type="scope.row.status === '正常' ? 'success' : 'danger'" style="font-size: 18px;"
+                                disable-transitions>{{scope.row.status}}
+                        </el-tag>
+                    </template>
+                </el-table-column>
+                <el-table-column label="操作">
+                    <template slot-scope="scope" style="font-size: 18px;">
+                        <el-button v-if="currentId === scope.row.id" type="danger" size="small" style="font-size: 16px;" disabled>禁用</el-button>
+                        <el-button v-if="currentId !== scope.row.id && scope.row.status === '正常'" type="danger" size="small" style="font-size: 16px;" @click="alterStatus(scope.row)">禁用</el-button>
+                        <el-button v-if="scope.row.status === '禁用'" type="success" size="small" style="font-size: 16px;" @click="alterStatus(scope.row)">启用</el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                //表格中的数据
+                tableData: [],
+                cacheData: [], //记录表格输入，读入后就不改变，与数据库中数据一致
+                //新增用户dialog的可视状态
+                dialogVisible: false,
+                //搜索内容
+                searchContent:{
+                    name:'',
+                },
+                //新增用户的对象
+                newEmployee:{
+                    id:null,
+                    username:'',
+                    password:'',
+                    confirm:'',
+                    name:'',
+                    age:'',
+                    phone:'',
+                    sex:'',
+                    create_time:null,
+                    type:'',
+                    status:0
+                },
+                // 表单校验
+                rules: {
+
+
+                },
+                //新增用户表格中年龄选择下来框绑定的对象
+                options:[],
+                //当前登录用户的id
+                currentId:sessionStorage.getItem("id")
+
+            }
+        },
+        methods:{
+            handleClose(done) {
+                this.$confirm('确认关闭？')
+                    .then(() => {
+                        Object.keys(this.newEmployee).forEach(k => this.newEmployee[k] = null)
+                        done();
+                    })
+                    .catch(() => {});
+            },
+            //新增用户
+            submit(){
+                this.$refs.newEmployee.validate((valid) => {
+                    // 校验表单，成功则发送请求
+                    if (valid) {
+                        axios({
+                            url:'http://localhost:8081/employee',
+                            method:'POST',
+                            contentType: "application/json; charset=utf-8",
+                            data:JSON.stringify(this.newEmployee),
+                        }).then(resp => {
+                            if(resp.data.code === 1){
+                                this.$message.success("添加成功")
+                                //添加成功则重新加载当前页面
+                                window.location = '/pages/manager/employee.html';
+                                //将新增员工对象中所有字段设置为空，避免下次添加依然显示上次输入的内容
+                                Object.keys(this.newEmployee).forEach(k => this.newEmployee[k] = null)
+                            }else{
+                                this.$message.error(resp.data.msg)
+                            }
+                        })
+
+                    } else {
+                        this.$message.error('请输入所有字段');
+                        return false;
+                    }
+                });
+            },
+            alterStatus(row){
+                axios({
+                    url: 'http://localhost:8081/employee/' + row.id,
+                    method: 'PUT',
+                }).then(resp => {
+                    if(resp.data.code === 1){
+                        this.$message.success("修改成功")
+                        row.status = row.status === '正常' ? '禁用':'正常';
+                    }else{
+                        this.$message.error(resp.data.msg)
+                    }
+                })
+            },
+            searchData(){
+                //查询前让表格恢复初始值，否则查询是建立在上次一次查询的基础上进行的
+                this.tableData = this.cacheData;
+                //遍历表格返回符合条件的数据
+                this.tableData = this.tableData.filter((obj) => {
+                    if(this.searchContent.name !== ''){
+                        return obj.name.includes(this.searchContent.name);
+                    }
+                })
+            },
+            reset(){
+                this.searchContent.name = ''
+                this.tableData = this.cacheData
+            }
+        },
+        created() {
+            axios({
+                url: 'http://localhost:8081/employee',
+                method: 'GET'
+            }).then(resp => {
+                let employeeList = resp.data.data;
+                for (let i = 0; i < employeeList.length; i++) {
+                    employeeList[i].status = employeeList[i].status === 0 ? '正常' : '禁用'
+                    employeeList[i].type = employeeList[i].type === 0 ? '管理员' : '普通员工'
+                    employeeList[i].sex = employeeList[i].sex === 0 ? '男' : '女'
+                    this.tableData.push(employeeList[i]);
+                    this.cacheData.push(employeeList[i])
+                }
+            })
+            //循环生成年龄选择框
+            for (let i = 18; i <= 60; i++) {
+                this.options.push({value:i,label:i});
+            }
+        }
+    })
+</script>
+</body>
+
+</html>

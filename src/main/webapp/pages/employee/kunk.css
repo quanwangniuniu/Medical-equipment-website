@@ -1,0 +1,137 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 999;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.logo a {
+    color: #f00;
+    text-decoration: none;
+}
+
+.search {
+    flex-grow: 1;
+    margin: 0 20px;
+    position: relative;
+}
+
+.search input[type="text"] {
+    width: 100%;
+    padding: 8px 40px 8px 10px;
+    border: none;
+    border-radius: 20px;
+    font-size: 14px;
+    background-image: url("https://cdn2.iconfinder.com/data/icons/font-awesome/1792/search-512.png");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 16px;
+}
+
+.search button {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.menu {
+    display: flex;
+}
+
+.menu a {
+    margin-right: 20px;
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.user a {
+    color: #777;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.video-container {
+    margin: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.video-player {
+    background-color: #fff;
+    position: relative;
+    border-radius: 10px;
+    width: 48%;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+.video-player:hover {
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.2);
+}
+
+.video-player video {
+    border-radius: 10px;
+}
+
+.video-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.4);
+    color: #fff;
+}
+.footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f1f1f1;
+    padding: 10px 20px;
+    font-size: 14px;
+}
+
+.footer a {
+    text-decoration: none;
+    color: #333;
+    margin-right: 10px;
+}
+
+.footer a:hover {
+    color: #000;
+}
+
+@media screen and (max-width: 768px) {
+    .footer {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer a {
+        margin: 5px 0;
+    }
+}

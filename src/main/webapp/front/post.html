@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Post</title>
+    <style>
+         * {
+            padding: 0;
+            margin: 0;
+        }
+        body {
+            background-color: rgb(255,255,255);
+        }
+        li {
+            list-style: none;
+        }
+/************************************* head *********************************************/
+        .head {
+            overflow: hidden;
+            width: 960px;
+            margin: 25px auto;
+        }
+        .head .logo {
+            float: left;
+        }
+        .head .nav {
+            float: left;
+            margin-left: 70px;
+            margin-top: 8px;
+        }
+        .head .nav li {
+            float: left;
+        }
+        .head .nav a {
+            display: block;
+            height: 35px;
+            padding: 0 15px;
+            color: black;
+            text-decoration: none;
+            line-height: 35px;
+            font-size: 15px;
+        }
+        .head .nav a:hover {
+            color: rgb(0,164,255);
+            border-bottom: 2px solid rgb(0,164,255);
+        }
+/************************************* post *********************************************/
+.post {
+	width: 400px;
+    margin: auto;
+}
+.submit_btn {
+	display: block;
+	width: 100px;
+	height: 28px;
+	line-height: 28px;
+	font-size: 14px;
+	border: 1px #006600 solid;
+	text-align: center;
+	border-radius: 3px;
+	background:#090;
+	color:#FFF;
+	float: right;
+	margin: 10px 15px 0 0;
+}
+.submit_btn:hover {
+	background: #0C3;
+	cursor: pointer;
+}
+label {
+	display: inline-block;
+	text-align: right;
+	width: 100px;
+	padding-right:10px;
+	height: 28px;
+	margin-bottom: 10px;
+}
+input {
+	width: 267px;
+	height: 28px;
+	border: #06F 1px solid;
+	border-radius: 3px;
+	margin: 5px 0 5px 5px;
+}
+.h_title {
+	text-align:center;
+}
+.h_hr {
+	height:5px;
+	background:#0CF;
+	margin-bottom: 20px;
+	width: 620px;
+	margin-left: -100px;
+}
+    </style>
+</head>
+<body>
+
+<div class="head">
+    <div class="logo">
+        <img src="images/lttlogo.png">
+    </div>
+    <div class="nav">
+        <ul>
+            <li><a href="index.html">首页</a></li>
+            <li><a href="about%20us.html">公司介绍</a></li>
+            <li><a href="service.html">产品展示</a></li>
+            <li><a href="../pages/login.html">我是职员</a></li>
+            <li class="active"><a href="contact.html">联系我们</a></li>
+        </ul>
+    </div>
+</div>
+
+<div class="post">
+    <div class="h_title"><h1>欢迎加入路特通</h1></div>
+    <div class="h_hr"></div>
+    <form action="" method="get">
+        <label>姓名</label><input type="text" placeholder="请输入真实姓名..." /><br />
+        <label>身份证号</label><input type="password" placeholder="请输入身份证号..." /><br />
+        <label>年龄</label><input type="number" required placeholder="请输入年龄..." min="18" max="65" step="3">
+        <label>国家/地区</label><input type="text" placeholder="请选择国家/地区" id="region" list="regList"/>
+        <datalist id="regList">
+            <option value="中国台湾"></option>
+            <option value="中国香港"></option>
+            <option value="中国澳门"></option>
+            <option value="河北"></option>
+            <option value="山西"></option>
+            <option value="辽宁"></option>
+            <option value="吉林"></option>
+            <option value="黑龙江"></option>
+            <option value="江苏"></option>
+            <option value="浙江"></option>
+            <option value="安徽"></option>
+            <option value="福建"></option>
+            <option value="江西"></option>
+            <option value="山东"></option>
+            <option value="河南"></option>
+            <option value="湖北"></option>
+            <option value="湖南"></option>
+            <option value="广东"></option>
+            <option value="海南"></option>
+            <option value="四川"></option>
+            <option value="贵州"></option>
+            <option value="云南"></option>
+            <option value="陕西"></option>
+            <option value="甘肃"></option>
+            <option value="青海"></option>
+            <option value="台湾"></option>
+            <option value="内蒙古"></option>
+            <option value="广西"></option>
+            <option value="西藏"></option>
+            <option value="宁夏"></option>
+            <option value="新疆"></option>
+            <option value="上海"></option>
+            <option value="北京"></option>
+            <option value="天津"></option>
+            <option value="重庆"></option>
+        </datalist>
+        <br />
+        <label>手机</label><input type="tel" placeholder="请输入手机号..."/>  <br />
+        <label>Email</label><input type="email" placeholder="请输入Email地址..." /><br />
+        <label>投递职位</label><input type="text" placeholder="请选择职位" list="jobList">
+        <datalist id="jobList">
+            <option value="司机"></option>
+            <option value="医药代表"></option>
+        </datalist>
+        <label>工作年龄</label><input type="number" required placeholder="实际工龄" min="1" max="45" step="3">
+        <label for="massage" style="margin-top: 10px;">工作经历</label><textarea id="massage" name="massage" cols="55" rows="5" placeholder="eg: 2002年02月02日-2012年12月12日 于xxxx公司任职xx"></textarea>
+        <div class="submit_btn">提交...</div>
+    </form>
+</div>
+
+</body>
+</html>

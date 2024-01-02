@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chat Room</title>
+  <script src="/webjars/jquery/3.5.1/jquery.min.js"></script>
+  <script src="/webjars/stomp-websocket/2.3.3/stomp.min.js"></script>
+</head>
+<body>
+<div>
+  <input type="text" id="username" placeholder="Enter your username"/>
+  <button onclick="connect()">Connect</button>
+</div>
+<div id="chat" style="display:none;">
+  <div id="messages"></div>
+  <input type="text" id="message" placeholder="Enter your message"/>
+  <button onclick="send()">Send</button>
+</div>
+<script>
+  var stompClient = null;
+
+  function connect() {
+    var username = $("#username").val();
+    if (username === "") {
+      alert("Please enter your username!");
+      return;
+    }
+    $("#username").attr("disabled", true);
+    $("#chat").show();
+    var socket = new SockJS("/chat");
+    stompClient = Stomp.over(socket);
+    stompClient.connect({}, function (frame) {
+      stompClient.subscribe("/topic/messages", function (message) {
+        showMessage(JSON.parse(message.body));
+      });
+      stompClient.send("/app/message", {}, JSON.stringify({
+        "username": username,
+        "content": "has joined the chat"
+      }));
+    });
+  }
+
+  function send() {
+    var username = $("#username").val();
+    var content = $("#message").val();
+    stompClient.send("/app/message", {}, JSON.stringify({
+      "username": username,
+      "content": content
+    }));
+    $("#message").val("");
+  }
+
+  function showMessage(message) {
+    var html = "<p>" + message.username + ": " + message.content + "</p>";
+    $("#messages").append(html);
+  }
+</script>
+</body>
+</html>

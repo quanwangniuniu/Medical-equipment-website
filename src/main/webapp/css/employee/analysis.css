@@ -1,0 +1,234 @@
+/* 去除默认margin和padding */
+*{
+    padding: 0;
+    margin: 0;
+}
+
+/* 外层容器，留出padding，让面板有卡片式效果 */
+.container{
+    height: 96vh;
+    padding: 2vh 0;
+    width: 100%;
+    background-color: rgb(23, 23, 23);
+}
+
+/* 左侧导航条 开启浮动 和右侧面板并排显示 */
+.left-nav{
+    width: 200px;
+    height: 96vh;
+    float: left;
+}
+
+/* 主面板 */
+.panel{
+    height: 96vh;
+    margin-left:250px;
+    margin-right: 2vh;
+    background:white;
+    border-radius: 20px;
+    display:flex;
+    flex-direction: column;
+}
+
+/* 去除默认效果 设置 */
+ul, li{
+    list-style: none;
+}
+
+/* 设置导航栏位置 */
+ul{
+    margin-top: 50px;
+    margin-left: 20px;
+    width: 205px;
+}
+
+/* 设置导航项目间距 */
+li{
+    padding: 15px 0px 15px 25px;
+    margin: 20px 0;
+}
+
+/* 设置悬浮效果 */
+li:hover{
+    background-color: rgb(60, 59, 59);
+    /* 悬浮时放大效果 */
+    transition: all 0.1s;
+    transform: scale(1.1);
+    border-radius: 10px;
+}
+
+li:hover span{
+    color: rgb(141, 216, 29);
+}
+
+li:hover a{
+    color: white;
+}
+
+/* 去除超链接默认效果，设置字体颜色 */
+a{
+    text-decoration: none;
+    color: rgb(194, 194, 194);
+    font-size: 18px;
+}
+
+/* 设置图标颜色 */
+.iconfont{
+    color: rgb(147, 144, 144);
+}
+
+
+.welcome{
+    margin: 50px 0 0 50px;
+}
+
+.welcome h4{
+    color: grey;
+}
+
+/* flex布局 水平排列三个数据框 */
+.dada-display{
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+}
+
+/* 设置数据框大小 边框 */
+.dada-display > div{
+    height: 100px;
+    margin: 0 20px;
+    border-radius: 10px;
+    border: 2px solid rgba(187, 187, 187, 0.5);
+    flex: 1;
+}
+
+/* 设置数据框内黑色圆圈 flex布局使圆内icon水平垂直居中*/
+.circle{
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+    background-color: rgb(0, 47, 167);
+    margin: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    float: left;
+    box-shadow: 0px 0px 2px 1px rgb(0, 56, 196);
+}
+
+/*设置圆内icon  */
+.circle span{
+    color: white;
+    font-size: 35px;
+}
+
+/* 开启浮动，和圆圈水平排列 */
+.data-desc{
+    float: left;
+}
+
+/* 设置数据title格式 */
+.data-title{
+    margin-top: 15px;
+    height: 20px;
+    line-height: 20px;
+}
+
+/* 设置数据title文字颜色 */
+.data-title span{
+    color: grey;
+}
+
+/* 设置数据样式 */
+.data-number{
+    height: 50px;
+    line-height: 50px;
+    font-size: 40px;
+}
+
+
+/* 设置待办事项 */
+.todo{
+    height: 600px;
+    /* background-color: rgb(230, 230, 230); */
+    overflow: hidden;
+}
+
+/* 设置事项title样式 */
+.todo-titles{
+    margin: 20px 0 0 50px;
+    font-size: 20px;
+    color: rgb(196, 196, 196);
+    font-weight: bolder;
+}
+
+/* 设置todo表格选种时的字体加粗 */
+.todo-titles .selected{
+    color: black;
+    font-weight: bolder;
+}
+
+/* 设置表单位置 */
+.table{
+    margin: 20px 50px 50px 50px;
+}
+
+/* 图表容器 */
+.charts{
+    margin: 50px 50px 10px 50px;
+    /* 分配满容器剩余的空间 */
+    flex-grow: 1;
+}
+
+/* 左图表 */
+#avenue{
+    width: 50%;
+    height: 100%;
+    float: left;
+}
+
+/* 右图表 */
+#rate{
+    width: 50%;
+    height: 100%;
+    float: left;
+}
+
+.logout-btn{
+    position: absolute;
+    bottom: 100px;
+}
+
+/* ================================================================ */
+
+.panel{
+    box-sizing:border-box;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.p1{
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+}
+
+.p2{
+    flex: 1;
+}
+
+.p1-1{
+    flex: 2;
+}
+
+.p1-2{
+    flex: 1;
+    padding-right: 50px;
+}
+
+
+.panel h1{
+    margin-left: 20px;
+    margin-top: 15px;
+}

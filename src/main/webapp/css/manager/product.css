@@ -1,0 +1,55 @@
+.panel{
+    box-sizing:border-box;
+    overflow: hidden;
+}
+
+.prod-table{
+    margin: 50px 50px 0 50px;
+}
+
+.add-btn{
+    float: right;
+}
+
+.demo-table-expand {
+    font-size: 0;
+}
+.demo-table-expand label {
+    width: 90px;
+    color: #99a9bf;
+}
+.demo-table-expand .el-form-item {
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 50px;
+    width: 50%;
+}
+
+.add-title{
+    display: inline-block;
+    width: 60px;
+}
+
+.inline-title{
+    display: inline-block;
+    width: 40px;
+    text-align: center;
+}
+
+.add-form{
+    width: 600px;
+    margin: 0 auto;
+}
+
+.form-item{
+    display: inline-block;
+}
+
+.dialog-footer button:last-child{
+    background-color: rgb(0, 47, 167) ;
+    border: none;
+}
+
+.demo-table-expand .el-form-item{
+    width: 100% !important;
+}

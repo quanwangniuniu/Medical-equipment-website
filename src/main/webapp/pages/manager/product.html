@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../../css/manager/side.css">
+    <link rel="stylesheet" href="../../css/manager/product.css">
+    <link rel="stylesheet" href="../../icon/iconfont.css">
+    <!-- 引入element-ui的css，-->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- 引入vue.js -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+    <!-- 引入element的js-->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <!-- axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+<div class="container" id="app">
+    <div class="left-nav">
+        <ul>
+            <li>
+                <span class="iconfont icon-zhuye2"></span>&nbsp;&nbsp;<a href="index.html">主页</a>
+            </li>
+            <li>
+                <span class="iconfont icon-peoplelist"></span>&nbsp;&nbsp;<a href="employee.html">员工管理</a>
+            </li>
+            <li>
+                <span class="iconfont icon-product"></span>&nbsp;&nbsp;<a href="product.html">产品管理</a>
+            </li>
+            <li>
+                <span class="iconfont icon-analysis"></span>&nbsp;&nbsp;<a href="analysis.html">数据分析</a>
+            </li>
+        </ul>
+        <ul class="logout-btn">
+            <li>
+                <span class="iconfont icon-tuichu"></span>&nbsp;&nbsp;<a href="/logout">退出登录</a>
+            </li>
+        </ul>
+    </div>
+    <div class="panel">
+        <div class="prod-table">
+            <!-- 表格顶部搜索栏 -->
+            <div class="top-bar">&nbsp;&nbsp;
+                产品名&nbsp;<el-input placeholder="请输入产品名" style="width: 200px" v-model="searchContent.name"></el-input>
+                &nbsp;&nbsp;
+                <el-button type="primary" style="background-color: rgb(0, 47, 167); border: none"  @click="searchData">查询</el-button>
+                <el-button type="primary" style="background-color: rgb(0, 47, 167); border: none" @click="reset">重置</el-button>
+                <el-button type="primary" class="add-btn" style="background-color: rgb(0, 47, 167); border: none"
+                           @click="dialogVisible = true">
+                    新增产品
+                </el-button>
+            </div>
+
+            <!--  新增用户时弹出的dialog  -->
+            <el-dialog title="新增产品" :visible.sync="dialogVisible" width="30%" :before-close="handleClose" center
+                       fullscreen>
+                <el-form ref="newProduct" :model="newProduct" :rules="rules" class="add-form">
+                    <span class="add-title">产品名</span>
+                    <el-form-item prop="name" class="form-item">
+                        <el-input v-model="newProduct.name" placeholder="请输入产品名" style="width: 455px"></el-input>
+                    </el-form-item>
+                    <br>
+                    <span class="add-title">产品类型</span>
+                    <el-form-item prop="type" class="form-item">
+                        <el-input v-model="newProduct.type" placeholder="请输产品类型" style="width: 200px"></el-input>
+                    </el-form-item>
+                    <span class="inline-title">成本</span>
+                    <el-form-item prop="purchase_price" class="form-item">
+                        <el-input v-model="newProduct.purchase_price" placeholder="成本"
+                                  style="width: 80px"></el-input>
+                    </el-form-item>
+                    <span class="inline-title">售价</span>
+                    <el-form-item prop="price" class="form-item">
+                        <el-input v-model="newProduct.price" placeholder="售价" style="width: 80px"></el-input>
+                    </el-form-item>
+
+                    <br>
+                    <span class="add-title">生产商</span>
+                    <el-form-item prop="manufacturer" class="form-item">
+                        <el-input v-model="newProduct.manufacturer" placeholder="请输入生产商"
+                                  style="width: 455px"></el-input>
+                    </el-form-item>
+
+                    <br>
+                    <span class="add-title">产品规格</span>
+                    <el-form-item prop="specification" class="form-item">
+                        <el-input type="textarea" :rows="3" v-model="newProduct.specification" placeholder="请输入产品规格"
+                                  style="width: 455px"></el-input>
+                    </el-form-item>
+
+                    <br>
+                    <span class="add-title">产品疗效</span>
+                    <el-form-item prop="efficacy" class="form-item">
+                        <el-input type="textarea" :rows="3" v-model="newProduct.efficacy" placeholder="请输入产品疗效"
+                                  style="width: 455px"></el-input>
+                    </el-form-item>
+
+                    <br>
+                    <span class="add-title">使用方法</span>
+                    <el-form-item prop="instruction" class="form-item">
+                        <el-input type="textarea" :rows="3" v-model="newProduct.instruction" placeholder="请输人使用方法"
+                                  style="width: 455px"></el-input>
+                    </el-form-item>
+
+                    <br>
+                    <span class="add-title">副作用</span>
+                    <el-form-item prop="side_effect" class="form-item">
+                        <el-input type="textarea" :rows="3" v-model="newProduct.side_effect" placeholder="请输入副作用"
+                                  style="width: 455px"></el-input>
+                    </el-form-item>
+
+                </el-form>
+                <span slot="footer" class="dialog-footer">
+                        <el-button @click="dialogVisible = false">取 消</el-button>
+                        <el-button type="primary" @click="submit">确 定</el-button>
+                    </span>
+            </el-dialog>
+
+            <el-table :data="tableData" style="width:100%" height="80vh">
+                <el-table-column type="expand">
+                    <template slot-scope="props">
+                        <el-form label-position="left" inline class="demo-table-expand">
+                            <el-form-item label="商品名称">
+                                <span>{{ props.row.name }}</span>
+                            </el-form-item>
+                            <el-form-item label="成本">
+                                <span>{{ props.row.purchase_price}}</span>
+                            </el-form-item>
+                            <el-form-item label="售价">
+                                <span>{{ props.row.price}}</span>
+                            </el-form-item>
+                            <el-form-item label="制造商">
+                                <span>{{ props.row.manufacturer}}</span>
+                            </el-form-item>
+                            <el-form-item label="产品规格">
+                                <span>{{ props.row.specification}}</span>
+                            </el-form-item>
+                            <el-form-item label="产品疗效">
+                                <span>{{ props.row.efficacy}}</span>
+                            </el-form-item>
+                            <el-form-item label="使用方法">
+                                <span>{{ props.row.instruction}}</span>
+                            </el-form-item>
+                            <el-form-item label="副作用">
+                                <span>{{ props.row.side_effect}}</span>
+                            </el-form-item>
+                        </el-form>
+                    </template>
+                </el-table-column>
+                <el-table-column label="产品 ID" prop="id">
+                </el-table-column>
+                <el-table-column label="产品名称" prop="name">
+                </el-table-column>
+                <el-table-column label="产品类型" prop="type">
+                    <template slot-scope="scope">
+                        <el-tag style="font-size: 18px;" disable-transitions>{{scope.row.type}}</el-tag>
+                    </template>
+                </el-table-column>
+                <el-table-column label="操作"  width="100">
+                    <template slot-scope="scope" style="font-size: 18px;">
+                        <el-button type="danger" size="small" style="font-size: 16px;" @click="deleteProduct(scope.row)">删除</el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
+        </div>
+    </div>
+</div>
+
+<script>
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                dialogVisible: false,
+                searchContent: {
+                    name: ''
+                },
+                tableData: [],
+                cacheData: [], //记录表格输入，读入后就不改变，与数据库中数据一致
+                newProduct: {
+                    name: '',
+                    price: '',
+                    type: '',
+                    purchase_price: '',
+                    manufacturer: '',
+                    specification: '',
+                    efficacy: '',
+                    instruction: '',
+                    side_effect: ''
+                },
+                rules: {
+                    name: [{required: true, message: '请输入产品名', trigger: 'blur'}],
+                    price: [{required: true, message: '请输入售价', trigger: "blur"}],
+                    purchase_price: [{required: true, message: '请输入成本', trigger: 'blur'}],
+                    type: [{required: true, message: '请输入产品类型', trigger: 'blur'}],
+                    manufacturer: [{required: true, message: '请输入生产商', trigger: 'blur'}],
+                    specification: [{required: true, message: '请输入产品规格', trigger: 'blur'}],
+                    efficacy: [{required: true, message: '请输入产品疗效', trigger: 'blur'}],
+                    instruction: [{required: true, message: '请输入使用方法', trigger: 'blur'}],
+                    side_effect: [{required: true, message: '请输入副作用', trigger: 'blur'}],
+                }
+
+            }
+        },
+        methods: {
+            handleClose(done) {
+                this.$confirm('确认关闭？')
+                    .then(() => {
+                            Object.keys(this.newProduct).forEach(k => this.newProduct[k] = null)
+                            done();
+                        }
+                    )
+                    .catch(() => {
+
+                    });
+            },
+            //新增产品
+            submit() {
+                this.$refs.newProduct.validate((valid) => {
+                    // 校验表单，成功则发送请求
+                    if (valid) {
+                        axios({
+                            url: 'http://localhost:8081/product',
+                            method: 'POST',
+                            data: JSON.stringify(this.newProduct),
+                            header: {
+                                'content-type': 'application/x-www-form-urlencoded'
+                            }
+                        }).then(resp => {
+                            if (resp.data.code === 1) {
+                                this.$message.success("添加成功")
+                                //添加成功则重新加载当前页面
+                                window.location = '/pages/manager/product.html';
+                                //将新增员工对象中所有字段设置为空，避免下次添加依然显示上次输入的内容
+                                Object.keys(this.newProduct).forEach(k => this.newProduct[k] = null)
+                            } else {
+                                this.$message.error(resp.data.msg)
+                            }
+                        })
+
+                    } else {
+                        this.$message.error('请输入所有字段');
+                        return false;
+                    }
+                });
+            },
+            deleteProduct(row){
+                axios({
+                    url:'http://localhost:8081/product/' + row.id,
+                    method:'DELETE',
+                }).then(resp => {
+                    if (resp.data.code === 1) {
+                        this.$message.success("删除成功")
+                        this.tableData = this.tableData.filter(p => p.id !== row.id)
+                    } else {
+                        this.$message.error(resp.data.msg)
+                    }
+                })
+            },
+            searchData(){
+                //查询前让表格恢复初始值，否则查询是建立在上次一次查询的基础上进行的
+                this.tableData = this.cacheData;
+                //遍历表格返回符合条件的数据
+                this.tableData = this.tableData.filter((obj) => {
+                    if(this.searchContent.name !== ''){
+                        return obj.name.includes(this.searchContent.name);
+                    }
+                })
+            },
+            reset(){
+                this.searchContent.name = ''
+                this.tableData = this.cacheData
+            }
+        },
+        created() {
+            axios({
+                url: 'http://localhost:8081/product',
+                method: 'GET'
+            }).then(resp => {
+                if (resp.data.code === 1) {
+                    resp.data.data.forEach(e => {
+                        this.tableData.push(e);
+                        this.cacheData.push(e);
+                    })
+                } else {
+                    this.$message.error(resp.data.msg);
+                }
+            })
+
+        }
+    })
+</script>
+</body>
+
+</html>

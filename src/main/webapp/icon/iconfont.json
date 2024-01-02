@@ -1,0 +1,86 @@
+{
+  "id": "3572785",
+  "name": "medicine",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "396487",
+      "name": "退出",
+      "font_class": "tuichu",
+      "unicode": "e66a",
+      "unicode_decimal": 58986
+    },
+    {
+      "icon_id": "830930",
+      "name": "退出",
+      "font_class": "tuichu1",
+      "unicode": "e636",
+      "unicode_decimal": 58934
+    },
+    {
+      "icon_id": "6548555",
+      "name": "主页",
+      "font_class": "zhuye2",
+      "unicode": "e65d",
+      "unicode_decimal": 58973
+    },
+    {
+      "icon_id": "5145210",
+      "name": "主页",
+      "font_class": "zhuye1",
+      "unicode": "e628",
+      "unicode_decimal": 58920
+    },
+    {
+      "icon_id": "1005714",
+      "name": "people_list",
+      "font_class": "peoplelist",
+      "unicode": "e7be",
+      "unicode_decimal": 59326
+    },
+    {
+      "icon_id": "1634067",
+      "name": "resume box",
+      "font_class": "resumebox",
+      "unicode": "e605",
+      "unicode_decimal": 58885
+    },
+    {
+      "icon_id": "10156395",
+      "name": "主页",
+      "font_class": "zhuye",
+      "unicode": "e654",
+      "unicode_decimal": 58964
+    },
+    {
+      "icon_id": "11200058",
+      "name": "分析",
+      "font_class": "analysis",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "11488100",
+      "name": "product",
+      "font_class": "product",
+      "unicode": "e75d",
+      "unicode_decimal": 59229
+    },
+    {
+      "icon_id": "15414298",
+      "name": "Nav03-hrstaff",
+      "font_class": "hrstaff",
+      "unicode": "e611",
+      "unicode_decimal": 58897
+    },
+    {
+      "icon_id": "28661057",
+      "name": "Resume",
+      "font_class": "Resume",
+      "unicode": "e661",
+      "unicode_decimal": 58977
+    }
+  ]
+}

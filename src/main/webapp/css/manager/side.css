@@ -1,0 +1,83 @@
+/* 去除默认margin和padding */
+*{
+    padding: 0;
+    margin: 0;
+}
+
+/* 外层容器，留出padding，让面板有卡片式效果 */
+.container{
+    height: 96vh;
+    padding: 2vh 0;
+    width: 100%;
+    background-color: rgb(23, 23, 23);
+}
+
+/* 左侧导航条 开启浮动 和右侧面板并排显示 */
+.left-nav{
+    width: 200px;
+    height: 96vh;
+    float: left;
+}
+
+/* 主面板 */
+.panel{
+    height: 96vh;
+    margin-left:250px;
+    margin-right: 2vh;
+    background:white;
+    border-radius: 20px;
+    display:flex;
+    flex-direction: column;
+}
+
+/* 去除默认效果 设置 */
+ul, li{
+    list-style: none;
+}
+
+/* 设置导航栏位置 */
+ul{
+    margin-top: 50px;
+    margin-left: 20px;
+    width: 205px;
+}
+
+/* 设置导航项目间距 */
+li{
+    padding: 15px 0px 15px 25px;
+    margin: 20px 0;
+}
+
+/* 设置悬浮效果 */
+li:hover{
+    background-color: rgb(60, 59, 59);
+    /* 悬浮时放大效果 */
+    transition: all 0.1s;
+    transform: scale(1.1);
+    border-radius: 10px;
+}
+
+li:hover span{
+    color: rgb(141, 216, 29);
+}
+
+li:hover a{
+    color: white;
+}
+
+/* 去除超链接默认效果，设置字体颜色 */
+a{
+    text-decoration: none;
+    color: rgb(194, 194, 194);
+    font-size: 18px;
+}
+
+/* 设置图标颜色 */
+.iconfont{
+    color: rgb(147, 144, 144);
+}
+
+.logout-btn{
+    position: absolute;
+    bottom: 100px;
+}

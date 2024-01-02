@@ -1,0 +1,36 @@
+.panel{
+    box-sizing:border-box;
+    overflow: hidden;
+
+}
+
+.emp-table{
+    margin: 50px 50px 0 50px;
+}
+
+.top-bar{
+    margin-bottom: 20px;
+}
+
+.add-btn{
+    float: right;
+}
+
+.add-title{
+    display: inline-block;
+    width: 60px;
+}
+
+.add-form{
+    width: 280px;
+    margin: 0 auto;
+}
+
+.form-item{
+    display: inline-block;
+}
+
+.dialog-footer button:last-child{
+    background-color: rgb(0, 47, 167) ;
+    border: none;
+}

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+  <head>
+ 	 <meta charset="UTF-8">
+    <title>路特通-关于我们</title>
+	<link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
+		<link href="css/about.css" rel="stylesheet" type="text/css" media="all">
+<script src="js/jquery-1.11.0.min.js"></script>
+<link href="css/style.css" rel="stylesheet" type="text/css" media="all"/>
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); }>
+</script>
+
+<!-- 设置一点js -->
+<script src="http://ajax.useso.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript" src="js/move-top.js"></script>
+<script type="text/javascript" src="js/easing.js"></script>
+	<script type="text/javascript">
+			jQuery(document).ready(function($) {
+				$(".scroll").click(function(event){		
+					event.preventDefault();
+					$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+				});
+			});
+	</script>
+	
+    <link rel = "stylesheet" href = "about.css">
+    <script>
+  //启动时方法
+    window.onload=function(){
+    var oDiv = document.getElementById('activity');
+    var oUl = oDiv.getElementsByTagName('ul')[0];
+    var Li = oUl.getElementsByTagName('li');
+    oUl.innerHTML = oUl.innerHTML+oUl.innerHTML;
+    oUl.style.width = Li[0].offsetWidth*Li.length+'px';//ul的宽度等于每个li的宽度乘以所有li的长度
+    var speed = 2;
+    function move(){
+    	if(oUl.offsetLeft<-oUl.offsetWidth/speed){
+    		oUl.style.left = '0';
+    }
+    //如果右边横向滚动的距离大于0 就让他的位置回到一半
+	    if(oUl.offsetLeft>0){
+	    	oUl.style.left = -oUl.offsetWidth/speed+'px';
+	    }
+	    oUl.style.left = oUl.offsetLeft+speed+'px';//进行右横向滚动
+	    //oUl.style.left = oUl.offsetLeft-2+'px';//进行左横向滚动
+    }
+
+    //调用方法
+    var timer = setInterval(move,40);//速度
+    //鼠标悬停时暂停
+    oDiv.onmouseover=function(){
+    	clearInterval(timer);
+    }
+    //鼠标离开之后恢复
+    oDiv.onmouseout=function(){
+    	timer = setInterval(move,30);
+    }
+   }
+
+    </script>
+  </head>
+   <!-- 上方主导航 -->
+  <body>
+  <div class="header-home">
+	<div class="fixed-header">
+				<div class="top-nav">
+						<span class="menu"> </span>
+					<ul>
+						<li><a href="index.html">首页</a></li>
+						<li class="active"><a href="about us.html">公司介绍</a></li>
+						<li><a href="service.html">产品展示</a></li>
+						<li><a href="../pages/login.html">我是职员</a></li>
+						<li><a href="contact.html">联系我们</a></li>
+					</ul>
+				<!-- script-nav -->
+			<script>
+			$("span.menu").click(function(){
+				$(".top-nav ul").slideToggle(500, function(){
+				});
+			});
+			</script>
+			<script type="text/javascript">
+					jQuery(document).ready(function($) {
+						$(".scroll").click(function(event){		
+							event.preventDefault();
+							$('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+						});
+					});
+					</script>
+				<!-- //script-nav -->
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+		</div>
+	<!--script-->
+			<!-- script-for sticky-nav -->
+		<script>
+		$(document).ready(function() {
+			 var navoffeset=$(".header-home").offset().top;
+			 $(window).scroll(function(){
+				var scrollpos=$(window).scrollTop(); 
+				if(scrollpos >=navoffeset){
+					$(".header-home").addClass("fixed");
+				}else{
+					$(".header-home").removeClass("fixed");
+				}
+			 });
+			 
+		});
+		</script>
+		<!-- /script-for sticky-nav -->
+    <!-- 上方主导航 -->
+  
+    <!-- 公司简介 -->
+    <div id="intro">
+    	<div class="intro_img lf">
+				<img src="images/intro.bmp">
+    	</div>
+		 <div class="intro_info">
+		 		<h1>公司简介</h1>
+				<br>
+				<h3>江苏路特通医疗器械有限公司</h3>
+				<p>江苏路特通医疗器械有限公司(以下简称“公司”)是一家专业致力于医疗用品销售的企业，
+				注册资金 1000万元，主要经营项目为：Ⅰ、Ⅱ、Ⅲ类医疗器械。</p>
+				<a href="#">公司目前的主要产品有：美国诺华贝(NovaBay Pharmaceuticals)公司进口伤口液体敷料。
+				</a>
+				<p>
+				目前公司的销售网络为全国各大三级医院以及各个县区主要的人民医院和中医院，
+				合作客户逐歩增加，公司规模不断扩大。为了适应公司的快速发展，
+				公司已与全国及国外众多家医药生产厂家建立了长期合作关系，
+				凭借公司自身优势以及丰富的产品，为广大客户提供优异的销量保证和优秀的合作产品。
+				</p>
+				<br>
+				<br>
+				<br>
+		 </div>
+    </div>
+    <!-- 企业文化 -->
+    <div id="title1">
+    	<h1><span>企业文化</span></h1>
+    </div>
+    <div id="management">
+    	<!-- <h1><span>企业文化</span></h1> -->
+    	<ul class="man_info lf">
+    		<li>
+    			<h3 ><span>核心</span>价值</h3>
+    			<p>团结、进取<br>创新、共赢</p>
+    		</li>
+    		<li>
+    			<h3 class="info_x"><span>使命</span></h3>
+    			<p>创造人类健康生活<br>  提供客户满意服务</p>
+    		</li>
+    		<li>
+    			<h3 ><span>宗旨</span></h3>
+    			<p>为广大客户提供优异的销量保证<br>和优秀的合作产品</p>
+    		</li>
+    		<li>
+    			<h3><span>共同</span>发展</h3>
+    			<!-- <hr/> -->
+    			<p>尊重客户和员工<br>
+				让我们一起共同前行</p>
+    		</li>
+    	</ul>
+    	<ul>
+    		<li class = "lf">
+				<img src = "images/hezuo2.jpg">
+			</li>
+    	</ul>
+    </div>
+    <!-- 活动 -->
+    <div id=title2>
+    	<h1>公司活动</h1>
+    	<p>路达天下，特通八方。江苏路特通医疗器械有限公司期待与您的真诚合作，共创未来!</p>
+    </div>
+    <div id="activity">
+	    <ul>
+		    <li><img src="images/ac_01.jpg" alt=""></li>
+		    <li><img src="images/ac_02.jpg" alt=""></li>
+		    <li><img src="images/ac_03.jpg" alt=""></li>
+		    <li><img src="images/ac_04.jpg" alt=""></li>
+		    <li><img src="images/ac_05.jpg" alt=""></li>
+		    <li><img src="images/ac_06.jpg" alt=""></li>
+		    <li><img src="images/ac_07.jpg" alt=""></li>
+		    <li><img src="images/ac_08.jpg" alt=""></li>
+		    <li><img src="images/ac_09.jpg" alt=""></li>
+		    <li><img src="images/ac_10.jpg" alt=""></li>
+		    <li><img src="images/ac_11.jpg" alt=""></li>
+	    </ul>
+    </div>
+    <!-- 页面底部 -->
+<div class="footer">
+	<div class="container">
+		<div class="footer-main">
+			<div class="col-md-4 footer-grid">
+				<h3>关于我们</h3>
+				<ul>
+					<li><a href="index.html" class="active">首页</a></li>
+					<li><a href="about%20us.html">公司介绍</a></li>
+					<li><a href="service.html">产品展示</a></li>
+					<li><a href="../pages/login.html">我是职工</a></li>
+					<li><a href="contact.html">联系我们</a></li>
+				</ul>
+			</div>
+
+			<div class="col-md-4 footer-grid">
+				<h3>友情链接</h3>
+				<ul>
+					<li><a href="https://www.chinacdc.cn/" >中国疾病防控中心</a></li>
+					<li><a href="https://www.msdmanuals.cn/">默沙东诊疗手册</a></li>
+					<li><a href="https://www.mvyxws.com/">医学微视</a></li>
+					<li><a href="https://www.webmd.com/">&WebMD</a></li>
+					<li><a href="https://dxy.com">丁香医生</a></li>
+				</ul>
+			</div>
+		
+			<div class="col-md-4 footer-grid">
+				<h3>联系我们</h3>
+				<p>地址</p>
+				<p>江苏省徐州市凤鸣路1号大通大厦2楼</p>
+				<p>0516-87786900</p>
+				<p>邮箱</p>
+				<p>ltt82661188@163.com</p>
+			</div>
+		  <div class="clearfix"> </div>
+		</div>
+		<div class="copyrigyht">
+				 <p>Copyright &copy; 2022.Company name All rights reserved.</p>
+		</div>
+	</div>
+</div>
+
+</body>
+</html>

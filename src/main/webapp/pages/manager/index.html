@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../../css/manager/index.css">
+    <link rel="stylesheet" href="../../icon/iconfont.css">
+    <!-- 引入element-ui的css，-->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- 引入vue.js -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+    <!-- 引入element的js-->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <!-- axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <!-- echarts -->
+    <script src="../../js/echarts.js"></script>
+
+</head>
+
+<body>
+<div class="container" id="app">
+    <div class="left-nav">
+        <ul>
+            <li>
+                <span class="iconfont icon-zhuye2"></span>&nbsp;&nbsp;<a href="index.html">主页</a>
+            </li>
+            <li>
+                <span class="iconfont icon-peoplelist"></span>&nbsp;&nbsp;<a href="employee.html">员工管理</a>
+            </li>
+            <li>
+                <span class="iconfont icon-product"></span>&nbsp;&nbsp;<a href="product.html">产品管理</a>
+            </li>
+            <li>
+                <span class="iconfont icon-analysis"></span>&nbsp;&nbsp;<a href="analysis.html">数据分析</a>
+            </li>
+        </ul>
+        <ul class="logout-btn">
+            <li>
+                <span class="iconfont icon-tuichu"></span>&nbsp;&nbsp;<a href="/logout">退出登录</a>
+            </li>
+        </ul>
+    </div>
+    <div class="panel">
+        <div class="welcome">
+            <h1>Welcome {{username}}</h1>
+            <h4>id: {{id}}</h4>
+        </div>
+
+
+        <div class="dada-display">
+            <div>
+                <div class="circle">
+                    <span class="iconfont icon-peoplelist"></span>
+                </div>
+                <div class="data-desc">
+                    <div class="data-title">
+                        <span>员工总数&nbsp;total employee</span>
+                    </div>
+                    <div class="data-number">
+                        <span>{{totalEmployee}}</span>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="circle">
+                        <span class="iconfont icon-product"></span>
+                </div>
+                <div class="data-desc">
+                    <div class="data-title">
+                        <span>产品总数&nbsp;total products</span>
+                    </div>
+                    <div class="data-number">
+                        <span>{{totalProduct}}</span>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="circle">
+                        <span class="iconfont icon-resumebox"></span>
+                </div>
+                <div class="data-desc">
+                    <div class="data-title">
+                        <span>未读简历&nbsp; unchecked resume</span>
+                    </div>
+                    <div class="data-number">
+                        <span>3</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="todo">
+            <div class="todo-titles">
+                <span class="selected">请假申请</span>
+            </div>
+
+            <div class="table">
+                <el-table :data="tableData" style="width: 100%; font-size: 18px;"   max-height="500">
+                    <el-table-column prop="name" label="请假人" width="180">
+                    </el-table-column>
+                    <el-table-column prop="start_date" label="开始日期" width="180">
+                    </el-table-column>
+                    <el-table-column prop="end_date" label="结束日期" width="180">
+                    </el-table-column>
+                    <el-table-column prop="reason" label="请假原因" >
+                    </el-table-column>
+                    <el-table-column prop="type" label="请假类型" width="180">
+                        <template slot-scope="scope">
+                            <el-tag :type="scope.row.type === '事假' ? 'primary' : 'danger'" style="font-size: 18px;"
+                                    disable-transitions>{{scope.row.type}}</el-tag>
+                        </template>
+                    </el-table-column>
+                    <el-table-column label="操作" width="180">
+                        <template slot-scope="scope" style="font-size: 18px;">
+                            <el-button type="success" size="small" style="font-size: 18px;" @click="checkLeaveRequest(scope.row, 1)">批准</el-button>
+                            <el-button type="danger" size="small" style="font-size: 18px;" @click="checkLeaveRequest(scope.row, 2)">拒绝</el-button>
+                        </template>
+                    </el-table-column>
+                </el-table>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                tableData: [],
+                username: sessionStorage.getItem("username"),
+                id: sessionStorage.getItem("id"),
+                totalEmployee:null,
+                totalProduct:null,
+            }
+        },
+        methods:{
+            checkLeaveRequest(row, status){
+                axios({
+                    url:'http://localhost:8081/leave/' + row.id + '/' + status,
+                    method:'POST',
+                }).then(resp => {
+                    if(resp.data.code === 1){
+                        this.$message.success("操作成功");
+                        this.tableData = this.tableData.filter(leave => leave.id !== row.id)
+                    }else{
+                        this.$message.success(resp.data.msg);
+                    }
+                })
+            }
+        },
+        created(){
+            axios({
+                url:'http://localhost:8081/leave',
+                method:'GET'
+            }).then(resp => {
+                let leaveRequests = resp.data.data;
+                for (let i = 0; i < leaveRequests.length; i++) {
+                    leaveRequests[i].type = leaveRequests[i].type === 0 ? '事假' : '病假'
+                    this.tableData.push(leaveRequests[i]);
+                }
+            })
+
+            axios({
+                url:'http://localhost:8081/employee',
+                method:'GET'
+            }).then(resp => {
+                if(resp.data.code === 1){
+                    this.totalEmployee = resp.data.data.length;
+                }else{
+                    this.$message.error("数据库错误");
+                }
+            })
+
+            axios({
+                url:'http://localhost:8081/product',
+                method:'GET'
+            }).then(resp => {
+                if(resp.data.code === 1){
+                    this.totalProduct = resp.data.data.length;
+                }else{
+                    this.$message.error("数据库错误");
+                }
+            })
+
+
+
+        }
+    })
+</script>
+</body>
+
+</html>
